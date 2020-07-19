@@ -39,7 +39,7 @@ body {
 
 .form__items {
   height: 257px;
-  overflow: scroll; }
+  overflow: auto; }
 
 .form__item {
   list-style: none;
