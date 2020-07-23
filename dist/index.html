@@ -9,40 +9,24 @@
 <link href="style.css" rel="stylesheet"></head>
 <body>
 
-
-<div class="form__group">
-  <label for="repo" class="form__label">Let's search amazing repositories!</label>
-  <input type="text" class="form__input" id="repo" placeholder="Let's search amazing repositories!">
+<div class="form">
+  <label for="repo" class="label">Let's search amazing repositories!</label>
+  <input type="text" class="input" id="repo" placeholder="Let's search amazing repositories!">
 </div>
 
 
 <script>
   const api = 'https://api.github.com/search/repositories?q=';
-  const debounceInput = document.querySelector('.form__input');
-  let form = document.querySelector('.form__group');
+  const debounceInput = document.querySelector('input');
+  let form = document.querySelector('.form');
 
   const formItems = document.createElement('ul');
   formItems.classList.add('form__items');
   form.appendChild(formItems);
 
-  const list = document.createElement('div');
-  list.classList.add('list');
-  document.body.append(list);
-
-  list.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (e.target.nodeName !== 'BUTTON') return;
-    let target = e.target;
-    target.parentNode.parentNode.removeChild(target.parentNode);
-  })
-
-  formItems.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (e.target.nodeName !== 'LI') return;
-    const target = e.target;
-    let card = createCard(target);
-    list.appendChild(card);
-  })
+  const cards = document.createElement('div');
+  cards.classList.add('cards');
+  document.body.append(cards);
 
   function createCard(target) {
     const card = document.createElement('div');
@@ -62,6 +46,31 @@
     card.appendChild(cardBtn);
     return card;
   }
+
+  function closeAllLists() {
+    let toClose = document.querySelectorAll('.form__item');
+
+    for (let i = 0; i < toClose.length; i++) {
+      toClose[i].remove();
+    }
+  }
+
+  cards.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (e.target.nodeName !== 'BUTTON') return;
+    let btn = e.target;
+    const currentCard = btn.parentNode;
+    currentCard.remove();
+    // btn.parentNode.parentNode.removeChild(target.parentNode);
+  })
+
+  formItems.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (e.target.nodeName !== 'LI') return;
+    const target = e.target;
+    let card = createCard(target);
+    cards.appendChild(card);
+  })
 
   const debounce = (fn, delay) => {
     let inDebounce;
@@ -91,15 +100,7 @@
     } catch (e) {
       console.log(e);
     }
-  }, 600));
-
-  function closeAllLists() {
-    let toClose = document.querySelectorAll('.form__item');
-
-    for (let i = 0; i < toClose.length; i++) {
-      toClose[i].parentNode.removeChild(toClose[i]);
-    }
-  }
+  }, 500));
 </script>
 <script type="text/javascript" src="./js/bundle.js"></script></body>
 </html>
