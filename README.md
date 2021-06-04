@@ -11,12 +11,6 @@
 - [Node](https://nodejs.org/)
 
 ## Использование
-##### Клонировать репозиторий, удалить историю
-```
-git clone https://github.com/alex-karo/webpack-static-template block7
-cd block7
-rm -fr .git
-```
 ##### Установить npm зависимости
 ```
 npm install
